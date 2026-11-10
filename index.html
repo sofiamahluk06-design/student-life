@@ -1,0 +1,369 @@
+<<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Life</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f1edff;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 25px;
+    background: #9b83d5;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin: 0 0 10px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px #00000012;
+}
+
+h2 {
+    color: #8064bd;
+    margin-top: 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 11px;
+    margin: 7px 0;
+    border: 1px solid #d5c9ef;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+button {
+    background: #9478ce;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    margin: 5px 3px;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #7558b3;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.delete {
+    background: #d77b91;
+}
+
+.day {
+    background: #f7f3ff;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 12px;
+}
+
+.day h3 {
+    color: #8064bd;
+    margin: 0 0 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+    border-bottom: 1px solid #e5def4;
+}
+
+#timer {
+    font-size: 42px;
+    text-align: center;
+    color: #8064bd;
+    margin: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #8064bd;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Student Life 💜</h1>
+    <p>Твій помічник у навчанні та організації часу</p>
+</header>
+
+<div class="container">
+
+    <!-- РОЗКЛАД -->
+    <section class="card">
+        <h2>📚 Мій розклад</h2>
+
+        <div class="day">
+            <h3>Понеділок</h3>
+            <table>
+                <tr><td>1.</td><td>Українська література</td></tr>
+                <tr><td>2.</td><td>Географія</td></tr>
+                <tr><td>3.</td><td>Математика</td></tr>
+            </table>
+        </div>
+
+        <div class="day">
+            <h3>Вівторок</h3>
+            <table>
+                <tr><td>1.</td><td>Фізкультура</td></tr>
+                <tr><td>2.</td><td>Українська мова</td></tr>
+                <tr><td>3.</td><td>Біологія</td></tr>
+            </table>
+        </div>
+
+        <div class="day">
+            <h3>Середа</h3>
+            <table>
+                <tr><td>1.</td><td>Хімія</td></tr>
+                <tr><td>2.</td><td>Фізика</td></tr>
+                <tr><td>3.</td><td>Інформатика</td></tr>
+            </table>
+        </div>
+
+        <div class="day">
+            <h3>Четвер</h3>
+            <table>
+                <tr><td>1.</td><td>Зарубіжна література</td></tr>
+                <tr><td>2.</td><td>Історія</td></tr>
+                <tr><td>3.</td><td>Англійська мова</td></tr>
+            </table>
+        </div>
+
+        <div class="day">
+            <h3>П'ятниця</h3>
+            <table>
+                <tr><td>1.</td><td>Українська література</td></tr>
+                <tr><td>2.</td><td>Захист України</td></tr>
+                <tr><td>3.</td><td>Математика</td></tr>
+                <tr><td>4.</td><td>Фізика</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- СПИСОК СПРАВ -->
+    <section class="card">
+        <h2>📝 Список справ</h2>
+        <input id="taskInput" type="text" placeholder="Напиши своє завдання">
+        <button onclick="addTask()">Додати завдання</button>
+        <ul id="taskList"></ul>
+    </section>
+
+    <!-- НОТАТКИ -->
+    <section class="card">
+        <h2>📖 Мої нотатки</h2>
+        <textarea id="notes" placeholder="Запиши важливу інформацію..."></textarea>
+        <p id="noteStatus">Нотатки зберігаються автоматично.</p>
+        </section>
+
+    <!-- ТАЙМЕР -->
+    <section class="card">
+        <h2>⏰ Таймер навчання</h2>
+        <div id="timer">25:00</div>
+        <button onclick="startTimer()">Старт</button>
+        <button onclick="pauseTimer()">Пауза</button>
+        <button onclick="resetTimer()">Скинути</button>
+    </section>
+
+    <!-- ОЦІНКИ -->
+    <section class="card">
+        <h2>⭐ Середній бал</h2>
+        <p>Введи оцінки через кому (від 1 до 12):</p>
+        <input id="grades" type="text" placeholder="Наприклад: 10, 11, 9, 12">
+        <button onclick="calculate()">Обчислити</button>
+        <h3 id="result">Твій середній бал: —</h3>
+    </section>
+
+</div>
+
+<footer>
+    <h3>Student Life 💜</h3>
+    <p>© 2026 Student Life</p>
+</footer>
+
+<script>
+
+// СПИСОК СПРАВ
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function renderTasks() {
+    let list = document.getElementById("taskList");
+    list.innerHTML = "";
+
+    tasks.forEach(function(task, index) {
+        let li = document.createElement("li");
+        li.textContent = task + " ";
+
+        let button = document.createElement("button");
+        button.textContent = "Видалити";
+        button.className = "delete";
+
+        button.onclick = function() {
+            tasks.splice(index, 1);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            renderTasks();
+        };
+
+        li.appendChild(button);
+        list.appendChild(li);
+    });
+}
+
+function addTask() {
+    let input = document.getElementById("taskInput");
+    let task = input.value.trim();
+
+    if (task === "") {
+        alert("Спочатку напиши завдання!");
+        return;
+    }
+
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    input.value = "";
+    renderTasks();
+}
+
+renderTasks();
+
+
+// НОТАТКИ
+
+let notes = document.getElementById("notes");
+
+notes.value = localStorage.getItem("notes") || "";
+
+notes.addEventListener("input", function() {
+    localStorage.setItem("notes", notes.value);
+    document.getElementById("noteStatus").textContent = "Збережено!";
+});
+
+
+// ТАЙМЕР
+
+let seconds = 1500;
+let timerInterval = null;
+
+function showTimer() {
+    let minutes = Math.floor(seconds / 60);
+    let remaining = seconds % 60;
+
+    document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(remaining).padStart(2, "0");
+}
+
+function startTimer() {
+    if (timerInterval !== null) return;
+
+    timerInterval = setInterval(function() {
+        if (seconds > 0) {
+            seconds--;
+            showTimer();
+        } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert("Час навчання завершився! Час відпочити.");
+        }
+    }, 1000);
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function resetTimer() {
+    pauseTimer();
+    seconds = 1500;
+    showTimer();
+}
+
+showTimer();
+
+
+// КАЛЬКУЛЯТОР ОЦІНОК
+
+function calculate() {
+    let input = document.getElementById("grades").value.trim();
+
+    let values = input.split(",").map(function(x) {
+        return Number(x.trim());
+    });
+
+    if (
+        input === "" ||
+        values.some(function(x) {
+            return !Number.isInteger(x) || x < 1 || x > 12;
+        })
+    ) {
+        document.getElementById("result").textContent =
+            "Введи правильні оцінки від 1 до 12.";
+        return;
+    }
+
+    let sum = values.reduce(function(a, b) {
+        return a + b;
+    }, 0);
+
+    let average = sum / values.length;
+
+    document.getElementById("result").textContent =
+        "Твій середній бал: " + average.toFixed(2);
+}
+
+</script>
+
+</body>
+</html>
